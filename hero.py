@@ -18,6 +18,22 @@ class Hero:
 		print(f"{winner.name} wins!")
 		return winner
 
+	def add_ability(self):
+		pass
+
+	def attack(self):
+		pass
+
+	def defend(self):
+		pass
+
+	def take_damage(self):
+		pass
+
+	def is_alive(self):
+		pass
+
+
 if __name__ == "__main__":
   # If you run this file from the terminal
   # this block is executed.
