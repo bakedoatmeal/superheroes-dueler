@@ -17,6 +17,8 @@ class Hero:
 		self.current_health = starting_health
 		self.abilities = list()
 		self.armors = list()
+		self.deaths = 0
+		self.kills = 0
 
 	def fight(self, opponent):
 		# winner = random.choice([self, opponent])
@@ -32,11 +34,14 @@ class Hero:
 					print("It's a draw!")
 				elif not self.is_alive():
 					print(f"{opponent.name} has won!")
-					break
+					opponent.add_kill(1)
+					self.add_death(1)
+					return 1
 				elif not opponent.is_alive():
 					print(f"{self.name} has won!")
-					break
-
+					self.add_kill(1)
+					opponent.add_death(1)
+					return 0
 
 	def add_ability(self, ability):
 		self.abilities.append(ability)
@@ -72,6 +77,14 @@ class Hero:
 
 	def add_weapon(self, weapon):
 		self.abilities.append(weapon)
+
+	def add_kill(self, num_kills):
+		total_kills = self.kills + num_kills
+		self.kills = total_kills
+
+	def add_death(self, num_deaths):
+		total_deaths = self.deaths + num_deaths
+		self.deaths = total_deaths
 
 if __name__ == "__main__":
   # If you run this file from the terminal
