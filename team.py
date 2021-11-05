@@ -23,8 +23,11 @@ class Team:
     
 
 	def stats(self):
-		for hero in self.heris: 
-			kd = hero.kills / hero.deaths
+		for hero in self.heroes: 
+			if hero.deaths > 0:
+				kd = hero.kills / hero.deaths
+			else: 
+				kd = hero.kills
 			print(f"{hero.name} Kill/Deaths:{kd}")
 
 	def revive_heroes(self, health=100):
