@@ -1,8 +1,10 @@
+from math import nan
 from ability import Ability
 from weapon import Weapon
 from armor import Armor
 from hero import Hero
 from team import Team
+from validateInput import validate_input
 
 class Arena:
 	def __init__(self):
@@ -17,26 +19,30 @@ class Arena:
 		'''Prompt for Ability Information.
 			 return Ability with values from user Input
 		'''
-		name = input("What is the ability name? ")
-		max_damage = int(input("What is the max damage of the ability? "))
-
+		# name = input("What is the ability name? ")
+		# max_damage = int(input("What is the max damage of the ability? "))
+		name = validate_input("What is the ability name? ", str)
+		max_damage = validate_input("What is the max damage of the ability? ", int)
 		return Ability(name, max_damage)
 
 	def create_weapon(self):
 		'''Prompt user for Weapon information
 			 return Weapon with values from user Input
 		'''
-		name = input("What is the weapon name? ")
-		max_damage = int(input("What is the max damage of the weapon?"))
-
+		# name = input("What is the weapon name? ")
+		# max_damage = int(input("What is the max damage of the weapon?"))
+		name = validate_input("What is the weapon name? ", str)
+		max_damage = validate_input("What is the max damage of the weapon? ", int)
 		return Weapon(name, max_damage)
 
 	def create_armor(self):
 		'''Prompt user for Armor infromation
 			return Armor with values from user Input
 		'''
-		name = input("What is the armor name? ")
-		max_block = int(input("What is the max block of the weapon? "))
+		# name = input("What is the armor name? ")
+		# max_block = int(input("What is the max block of the weapon? "))
+		name = validate_input("What is the armor name? ", str)
+		max_block = validate_input("What is the max block of the weapon? ", int)
 		return Armor(name, max_block)
 
 	def create_hero(self):
@@ -68,18 +74,18 @@ class Arena:
 
 	def build_team_one(self):
 		'''Prompt the user to build team_one'''
-		team_name = input("What is the name of team one? ")
+		team_name = validate_input("What is the name of team one? ", str)
 		self.team_one = Team(team_name)
-		numOfTeamMembers = int(input(f"How many members would you like on {team_name}?\n"))
+		numOfTeamMembers = validate_input(f"How many members would you like on {team_name}?\n", int)
 		for i in range(numOfTeamMembers):
 			hero = self.create_hero()
 			self.team_one.add_hero(hero)
 
 	def build_team_two(self):
 		'''Prompt the user to build team_one'''
-		team_name = input("What is the name of team two? ")
+		team_name = validate_input("What is the name of team two? ", str)
 		self.team_two = Team(team_name)
-		numOfTeamMembers = int(input(f"How many members would you like on {team_name}?\n"))
+		numOfTeamMembers = validate_input(f"How many members would you like on {team_name}?\n ", int)
 		for i in range(numOfTeamMembers):
 			hero = self.create_hero()
 			self.team_two.add_hero(hero)
@@ -154,15 +160,18 @@ class Arena:
 
 if __name__ == "__main__":
 	playAgain = True
+	arena = Arena()
+	arena.build_team_one()
+	arena.build_team_two()
 
 	while playAgain:
-		arena = Arena()
-		arena.build_team_one()
-		arena.build_team_two()
 		arena.team_battle()
 		arena.show_stats()
-		playerChoice = input("Play again? (y/n) ")
+		playerChoice = validate_input("Play again? (y/n) ", str)
 		if playerChoice.lower() == 'n':
 			playAgain = False
+		else: 
+			arena.team_one.revive_heroes()
+			arena.team_two.revive_heroes()
 
 
